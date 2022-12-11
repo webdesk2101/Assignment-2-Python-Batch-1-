@@ -55,22 +55,15 @@ file = open('keyword.txt')
 keywords = file.readlines()
 for keyword in keywords:
     keyword = keyword.strip('\n').strip('best').strip(' ')
-    # print(keyword)
-# file.close()
     title = f"{keyword} buying guide".title()
-    # print(keyword, title, sep=', ')
 
 
     ques_bank = []
-    # keyword = input('Enter your keyword: ')
     intro_prompt = f'Write 150 words about {keyword}'
-    # question_prompt = f'Generate 3 topics on {keyword}'
     first_ques = f'Why {keyword} is Important?'
     second_ques = f'Disadvantages of not having {keyword}'
     third_ques = f'Top 7 features to consider while buying {keyword}'
-    # conclusion = f'Sum up'
     ques_bank += first_ques, second_ques, third_ques
-    # print(ques_bank)
     conclusion = f'Write concluding words about {keyword}'
     conclusion_final = f'<!-- wp:heading --><h4>Conclusion</h4><!-- /wp:heading -->' \
                  f'<!-- wp:paragraph --><p>{openai_content(conclusion)}</p><!-- /wp:paragraph -->'
@@ -79,9 +72,7 @@ for keyword in keywords:
     for ques in ques_bank:
         answer = openai_content(ques)
         qa_dict[ques] = answer
-        # print(ques, answer, sep='\n', end='\n')
 
-        # title = ques_bank[0].title()
         content = wp_para(openai_content(intro_prompt))
         for key, value in qa_dict.items():
             h2 = wp_heading_h2(key)
